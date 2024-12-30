@@ -1,124 +1,176 @@
-import React from "react";
-import logo from "../assets/SavvyZi Logo.png"; // Update the path to your logo
+import React, { useState } from "react";
+import logo from "../assets/SavvyZi Logo.png";
 
 const Form2 = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    phoneOtp: "",
+    email: "",
+    emailOtp: "",
+    terms: false,
+  });
+
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const isFormValid = () =>
+    formData.name &&
+    formData.phone &&
+    formData.phoneOtp &&
+    formData.email &&
+    formData.emailOtp &&
+    formData.terms;
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="w-full max-w-lg px-4 text-center">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
         {/* Logo Section */}
-        <div className="mb-6">
+        <div className="text-center mb-6">
           <img
             src={logo}
             alt="SavvyZi Logo"
-            className="mx-auto max-w-full h-auto"
+            className="mx-auto w-32 h-auto mb-4"
           />
-          <h1 className="text-base font-medium text-red-700 mt-2">
-            Join the SavvyZi family!
+          <h1 className="text-xl font-semibold text-red-600 dark:text-white">
+            Join the SavvyZi Family
           </h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Please fill in the details below to get started.
+          </p>
         </div>
 
         {/* Form Fields */}
-        <div className="mt-5 bg-white text-left">
+        <form className="space-y-4">
           {/* Name Field */}
-          <div className="mb-6">
+          <div>
             <label
               htmlFor="name"
-              className="block text-sm font-semibold text-red-700 mb-2"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
-              Name:
+              Name
             </label>
             <input
               type="text"
               id="name"
               placeholder="Enter your name"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            />
+          </div>
+
+          {/* Phone Number Field */}
+          <div>
+            <label
+              htmlFor="phone"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
+            >
+              Phone Number
+            </label>
+            <input
+              type="text"
+              id="phone"
+              placeholder="Enter your phone number"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+            />
+          </div>
+
+          {/* OTP for Phone Field */}
+          <div>
+            <label
+              htmlFor="phoneOtp"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
+            >
+              Phone OTP
+            </label>
+            <input
+              type="text"
+              id="phoneOtp"
+              placeholder="Enter OTP sent to phone"
+              value={formData.phoneOtp}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
             />
           </div>
 
           {/* Email Field */}
-          <div className="mb-6">
+          <div>
             <label
               htmlFor="email"
-              className="block text-sm font-semibold text-red-700 mb-2"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
-              E-mail:
+              Email
             </label>
             <input
               type="email"
               id="email"
               placeholder="Enter your email"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
             />
-            <div className="text-right mt-2">
-              <button className="px-4 py-2 bg-red-700 text-white text-sm rounded-md hover:bg-red-800">
-                Send OTP
-              </button>
-            </div>
           </div>
 
-          {/* Email OTP Field */}
-          <div className="mb-6">
+          {/* OTP for Email Field */}
+          <div>
             <label
-              htmlFor="email-otp"
-              className="block text-sm font-semibold text-red-700 mb-2"
+              htmlFor="emailOtp"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
-              OTP:
+              Email OTP
             </label>
             <input
               type="text"
-              id="email-otp"
-              placeholder="Enter OTP"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+              id="emailOtp"
+              placeholder="Enter OTP sent to email"
+              value={formData.emailOtp}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
             />
-            <div className="text-right mt-2">
-              <button className="px-4 py-2 bg-red-700 text-white text-sm rounded-md hover:bg-red-800">
-                Verify
-              </button>
-            </div>
           </div>
 
-          {/* Phone Field */}
-          <div className="mb-6">
-            <label
-              htmlFor="phone"
-              className="block text-sm font-semibold text-red-700 mb-2"
-            >
-              Phone Number:
-            </label>
+          {/* Terms and Conditions Checkbox */}
+          <div className="flex items-center">
             <input
-              type="text"
-              id="phone"
-              placeholder="XXX-XXX-XXXX"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+              type="checkbox"
+              id="terms"
+              checked={formData.terms}
+              onChange={handleChange}
+              className="w-4 h-4 text-red-600 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-red-600"
             />
-            <div className="text-right mt-2">
-              <button className="px-4 py-2 bg-red-700 text-white text-sm rounded-md hover:bg-red-800">
-                Send OTP
-              </button>
-            </div>
+            <label
+              htmlFor="terms"
+              className="ml-2 text-sm text-gray-600 dark:text-gray-400"
+            >
+              I agree to the{" "}
+              <a
+                href="#"
+                className="text-red-600 dark:text-red-400 hover:underline"
+              >
+                terms and conditions
+              </a>
+            </label>
           </div>
 
-          {/* Phone OTP Field */}
-          <div className="mb-6">
-            <label
-              htmlFor="phone-otp"
-              className="block text-sm font-semibold text-red-700 mb-2"
+          {/* Submit Button */}
+          <div className="text-center">
+            <button
+              type="submit"
+              className="w-full p-3 text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              disabled={!isFormValid()}
             >
-              OTP:
-            </label>
-            <input
-              type="text"
-              id="phone-otp"
-              placeholder="Enter OTP"
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md bg-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500"
-            />
-            <div className="text-right mt-2">
-              <button className="px-4 py-2 bg-red-700 text-white text-sm rounded-md hover:bg-red-800">
-                Verify
-              </button>
-            </div>
+              Submit
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
