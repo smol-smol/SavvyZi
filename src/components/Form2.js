@@ -1,176 +1,135 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/SavvyZi Logo.png";
 
 const Form2 = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    phoneOtp: "",
-    email: "",
-    emailOtp: "",
-    terms: false,
-  });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [agree, setAgree] = useState(false);
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { id, value, type, checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: type === "checkbox" ? checked : value,
-    }));
+  const handleSubmit = () => {
+    // Redirect to SignUp.js (Signup2 page) after form submission
+    navigate("/signup2");
   };
 
-  const isFormValid = () =>
-    formData.name &&
-    formData.phone &&
-    formData.phoneOtp &&
-    formData.email &&
-    formData.emailOtp &&
-    formData.terms;
-
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-        {/* Logo Section */}
-        <div className="text-center mb-6">
-          <img
-            src={logo}
-            alt="SavvyZi Logo"
-            className="mx-auto w-32 h-auto mb-4"
-          />
-          <h1 className="text-xl font-semibold text-red-600 dark:text-white">
-            Join the SavvyZi Family
-          </h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Please fill in the details below to get started.
-          </p>
-        </div>
+    <div className="min-h-screen flex bg-gray-100">
+      {/* Left side (58% empty space) */}
+      <div className="w-3/5 bg-gray-100"></div>
 
-        {/* Form Fields */}
-        <form className="space-y-4">
-          {/* Name Field */}
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 dark:text-white"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+      {/* Right side (42% content with light grey case) */}
+      <div className="w-2/5 p-6 flex flex-col justify-center ml-auto">
+        {/* Light Grey Case Container */}
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+          {/* Logo Section */}
+          <div className="text-center mb-6">
+            <img
+              src={logo}
+              alt="SavvyZi Logo"
+              className="mx-auto w-32 h-auto mb-4"
             />
+            <h1 className="text-xl font-semibold text-red-600 dark:text-white">
+              Earn cashbacks and rewards with SavvyZi!
+            </h1>
           </div>
 
-          {/* Phone Number Field */}
-          <div>
-            <label
-              htmlFor="phone"
-              className="block text-sm font-medium text-gray-700 dark:text-white"
-            >
-              Phone Number
-            </label>
-            <input
-              type="text"
-              id="phone"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
-            />
-          </div>
-
-          {/* OTP for Phone Field */}
-          <div>
-            <label
-              htmlFor="phoneOtp"
-              className="block text-sm font-medium text-gray-700 dark:text-white"
-            >
-              Phone OTP
-            </label>
-            <input
-              type="text"
-              id="phoneOtp"
-              placeholder="Enter OTP sent to phone"
-              value={formData.phoneOtp}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
-            />
-          </div>
-
-          {/* Email Field */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 dark:text-white"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
-            />
-          </div>
-
-          {/* OTP for Email Field */}
-          <div>
-            <label
-              htmlFor="emailOtp"
-              className="block text-sm font-medium text-gray-700 dark:text-white"
-            >
-              Email OTP
-            </label>
-            <input
-              type="text"
-              id="emailOtp"
-              placeholder="Enter OTP sent to email"
-              value={formData.emailOtp}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
-            />
-          </div>
-
-          {/* Terms and Conditions Checkbox */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={formData.terms}
-              onChange={handleChange}
-              className="w-4 h-4 text-red-600 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-red-600"
-            />
-            <label
-              htmlFor="terms"
-              className="ml-2 text-sm text-gray-600 dark:text-gray-400"
-            >
-              I agree to the{" "}
-              <a
-                href="#"
-                className="text-red-600 dark:text-red-400 hover:underline"
+          {/* Fields Section */}
+          <div className="space-y-4">
+            {/* Name Field */}
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
               >
-                terms and conditions
-              </a>
-            </label>
-          </div>
+                Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-          {/* Submit Button */}
-          <div className="text-center">
-            <button
-              type="submit"
-              className="w-full p-3 text-white bg-red-600 rounded-lg hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-              disabled={!isFormValid()}
-            >
-              Submit
-            </button>
+            {/* Email Field */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                placeholder="example@gmail.com"
+                className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            {/* Phone Number Field */}
+            <div>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
+              >
+                Phone Number
+              </label>
+              <input
+                type="text"
+                id="phone"
+                placeholder="Enter your phone number"
+                className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+
+            {/* Terms and Conditions */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="agree"
+                checked={agree}
+                onChange={(e) => setAgree(e.target.checked)}
+                className="mr-2"
+              />
+              <label
+                htmlFor="agree"
+                className="text-sm text-gray-700 dark:text-white"
+              >
+                I agree with SavvyZi's terms & conditions
+              </label>
+            </div>
+
+            {/* Sign Up Button */}
+            <div className="text-center mt-6">
+              <button
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                onClick={handleSubmit}
+              >
+                Sign Up
+              </button>
+            </div>
+
+            {/* Already Have an Account Link */}
+            <p className="text-sm text-center text-red-600 mt-4">
+              I already have an account{" "}
+              <span
+                onClick={() => navigate("/form1")}
+                className="font-medium cursor-pointer hover:underline"
+              >
+                Log In
+              </span>
+            </p>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

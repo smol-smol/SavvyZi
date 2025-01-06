@@ -1,17 +1,25 @@
-// src/components/Form1.js
+// src/components/SignUp2.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/SavvyZi Logo.png";
 
-const Form1 = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
+const SignUp2 = () => {
+  const [phoneOtp, setPhoneOtp] = useState("");
+  const [emailOtp, setEmailOtp] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log("Logging in...");
-    // Redirect to the main page after successful login
-    navigate("/mainpage");
+  const handleSignUp = () => {
+    if (
+      password.length >= 8 &&
+      /\d/.test(password) &&
+      /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    ) {
+      console.log("Sign Up Successful!");
+      navigate("/mainpage");
+    } else {
+      console.log("Password criteria not met");
+    }
   };
 
   return (
@@ -25,28 +33,42 @@ const Form1 = () => {
               className="mx-auto w-32 h-auto mb-4"
             />
             <h1 className="text-xl font-semibold text-red-600 dark:text-white">
-              Welcome Back to SavvyZi
+              One step away from great bargains!
             </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Please enter your phone number to get started.
-            </p>
           </div>
 
           <div className="space-y-4">
             <div>
               <label
-                htmlFor="phone"
+                htmlFor="phoneOtp"
                 className="block text-sm font-medium text-gray-700 dark:text-white"
               >
-                Phone Number
+                Phone OTP
               </label>
               <input
                 type="text"
-                id="phone"
-                placeholder="Enter your phone number"
+                id="phoneOtp"
+                placeholder="Enter OTP sent to your phone"
                 className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneOtp}
+                onChange={(e) => setPhoneOtp(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="emailOtp"
+                className="block text-sm font-medium text-gray-700 dark:text-white"
+              >
+                Email OTP
+              </label>
+              <input
+                type="text"
+                id="emailOtp"
+                placeholder="Enter OTP sent to your email"
+                className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-100 dark:bg-gray-700"
+                value={emailOtp}
+                onChange={(e) => setEmailOtp(e.target.value)}
               />
             </div>
 
@@ -55,7 +77,7 @@ const Form1 = () => {
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700 dark:text-white"
               >
-                Password
+                Set Password
               </label>
               <input
                 type="password"
@@ -70,21 +92,11 @@ const Form1 = () => {
             <div className="text-right mb-4">
               <button
                 className="bg-red-700 text-white px-4 py-2 rounded-lg"
-                onClick={handleLogin}
+                onClick={handleSignUp}
               >
-                Log In
+                Sign Up
               </button>
             </div>
-
-            <p className="text-sm text-center text-red-600 mt-4">
-              No account?{" "}
-              <span
-                onClick={() => navigate("/form2")}
-                className="font-medium cursor-pointer hover:underline"
-              >
-                Sign Up here
-              </span>
-            </p>
           </div>
         </div>
       </div>
@@ -92,4 +104,4 @@ const Form1 = () => {
   );
 };
 
-export default Form1;
+export default SignUp2;
